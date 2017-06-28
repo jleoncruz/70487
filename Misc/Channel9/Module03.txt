@@ -1,0 +1,47 @@
+Developing Windows Azure and Web Services
+M3 Azure Storage and SQL Database  --- Data Storage
+https://channel9.msdn.com/series/developing-windows-azure-and-web-services/03
+
+Storage Overview
+Blob Storage
+Table Storage  -- NoSQL
+Queue Storage
+SQL Storage
+
+GeoLocations
+US
+  North/Central
+  West
+  South/Central
+  East
+  
+Europe
+  Northern
+  Western
+  
+Asia
+  East
+  South East
+  
+Blob
+
+Methods
+1) PutBlob
+2) GetBlob
+3) DeleteBlob
+4) CopyBlob
+5) SnapshotBlob
+6) LeaseBlob
+
+BlobckBlob -- for Streaming
+  200GB / blob
+  
+Page Blob -- random read/write workloads
+  1TB / blob
+  
+
+Entity Properties
+1) up to 1MB
+2) Up to 255 Properties
+
+PartitionKey and RowKey(only indexes properties)

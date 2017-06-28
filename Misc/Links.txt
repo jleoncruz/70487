@@ -1,0 +1,11 @@
+https://www.pluralsight.com/blog/software-development/developing-microsoft-azure-and-web-services-microsoft-exam-70-487
+https://www.pluralsight.com/courses/wcf-extensibility
+
+-=Old=-
+70-487
+Developing Microsoft Azure and Web Services
+https://channel9.msdn.com/series/developing-windows-azure-and-web-services/01
+https://borntolearn.mslearn.net/certification/p/wiki?es=webApp&ec=487
+-----------
+https://blogs.msdn.microsoft.com/brunoterkaly/2013/
+http://bretstateham.com/

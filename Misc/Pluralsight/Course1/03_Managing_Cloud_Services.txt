@@ -1,0 +1,122 @@
+Managing Cloud Services
+
+1) Affinity Groups
+2) Fault domains
+3) Upgrade Domains
+4) VIP swap
+
+rcmedchart.azurewebsites.net
+
+https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-nsg
+
+Management REST API
+1) PowerShell Commands
+2) CLI command line interface
+3) Visual Studio Server Exlorer
+4) Third party / custom tools
+
+Next 
+Cloud Storage Basics
+
+Windows Azure Storage
+- Tables - Key Value Pairs
+- Blobs - Larger Files, Video, Media, Pdfs (CDN)
+- Queues - (Inbox)
+
+Storage Account
+ - Subscription --> Storage Account -- Table, Blob, Queues
+
+ - Root URI/Container
+ - Security Keys
+ - Data Center / Geo-Location
+ - Monitoring
+
+ -- Storage Services thru REST API (HTTP)
+ 
+- Table Storage
+1) Key / value pair
+2) Partitioned
+3) Row Keys
+
+on the same table, we can have different entities, with different schemas or properties.
+
+Constraints
+ - Data Types
+   -- String (64KB Max)
+   -- Binary (64KB Max)
+   -- Bool
+   -- DateTime
+   -- GUID
+   -- Int
+   -- Int64
+   -- Double
+ - Field/row Size
+   -- Max Fields = 255*
+   -- Partition Key < 1 kb
+   -- RowKey < 1 kb
+   
+1) Partitions are created based on the partition key
+ - Monitored and automatically managed for scale
+ - matching partitioned keys = data in the same physical partition
+
+
+Optmistic Concurrency
+ - ETag / time Stamp (HTTP Error Code)
+Batch Operations
+ - Supporte by WCF Data Services
+ - Batches / transactions only supported on the SAME partition.
+ 
+ Queries 
+ PartitionKey eq 'PartitionKeyName' and RowKey eq 'rowKeyIdentifier'
+ 
+Next
+Blob Storage
+
+Blob Concepts
+- Root Container
+  -- Named Container
+    --- Blob
+	--- Blobt
+	
+Prefix -- APIS for further categorization
+
+Block vs page blobs
+- Block
+ -- Data written in blocks
+ -- Associate all blocks to blob
+ -- 200 GB Size Limit
+ 
+- Page Blobs
+ -- 512 byte page size
+ -- Read/Write specific ranges
+ -- 1 TB size limit
+ 
+Accesing blobs
+1) REST Interface (HTTP with security token)
+2) Simple HTTP access - Make container/blob public
+3) Content Delivery Network (CND) Caching
+
+Next:
+Demo: Working with blobs
+
+Access to blobs
+
+1) Container : Public -- everything is public
+2) Blob : Public -- the specific blob is public, rest of the container is not.
+3) Blob : Private -- the specific blob is private.
+
+CDN
+
+CDN Endpoint
+
+Next:
+Azure Queues
+- Short term storage for messages
+
+lower case letters, dashes and numbers
+
+Web Role --> Send Message  - HTTP Post (64KB MAX)
+worker role <-- Reads Message - HTTP GET/PEEK (64KB MAX)
+
+XML, String Encode Base 64, PopReceipt / Owner for Deletion
+

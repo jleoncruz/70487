@@ -1,0 +1,74 @@
+Pluralsight 70-487
+https://www.pluralsight.com/blog/it-ops/developing-microsoft-azure-and-web-services-microsoft-exam-70-487
+
+Windows Azure
+1) Compute
+2) Management
+3) Storage
+
+SQL Azure
+1) Reporting
+2) BA
+3) Data Sync
+
+Windows Azure AppFabric
+1) Service Bus
+2) Access Control
+
+https://app.pluralsight.com/player?course=beginner-azure&author=matt-milner&name=beginner-azure-publish&clip=5&mode=live
+
+Next:
+Working with Azure Storage
+--------------------------------------
+
+Using the SDK
+
+Tables
+Queues
+Blobs  Images/video large files
+
+
+
+Tables
+ - PartitionKey
+ - RowKey  (Identifier)
+ - Timestamp  (added/updated)
+ - (Entity Stores)
+ 
+Queues
+ - Send a message to the worker role from the web role.
+ - less than 8k (small messages)  //xml payload
+ - queue name -- all lower case
+ 
+Blobs
+ - Container
+
+Next: 
+SQL Azure
+--------------------------------------
+- Provisioning
+- Managing
+- ASP.NET Providers
+- ADO.NET
+
+Next :
+Web Services and AppFabric ServiceBus
+--------------------------------------
+- Hosting Services
+- AppFabric
+- Hosting on ServiceBus
+- Cosuming ServiceBus Services
+
+Next :
+Windows Azure AppFabric
+--------------------------------------
+- ServiceBus
+- Access Control Service (ACS)
+- Caching (CTP)
+
+STS = Security Token Service
+
+Hosting Service Bus endpoints
+--------------------------------------
+- sb protocol (ServiceBus)
+

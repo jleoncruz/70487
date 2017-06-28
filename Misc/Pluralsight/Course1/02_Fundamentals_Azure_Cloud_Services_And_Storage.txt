@@ -1,0 +1,39 @@
+Fundamentals of Azure Cloud Services and Storage
+
+Azure Cloud Services and storage
+
+Next:
+Cloud Service Architecture
+
+Roles
+Web Roles
+1) Windows Server
+2) .NET Framework
+3) Native Code
+4) IIS
+5) CGI
+6) PHP
+
+Worker Roles
+1) Windows Server
+2) .NET Framework
+3) Native Code
+
+https://medchart.azurewebsites.net/Home/HowitworksClinic
+https://medchart.azurewebsites.net/Home/Team
+
+
+Sevice Definition
+1) Virtual Machine sizing
+2) endpoints
+3) certificates
+4) Websites (web role)
+5) environment variables
+6) startup tasks
+7) configuration settings declarations
+
+Service Configuration
+1) OS
+2) Instance Count
+3) Values for configuration settings
+4) Certificate thumbprint

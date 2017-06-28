@@ -1,0 +1,81 @@
+Developing Windows Azure and Web Services
+M4 Data Access Technologies
+https://channel9.msdn.com/series/developing-windows-azure-and-web-services/04
+
+Overview
+1) ADO.NET
+2) LINQ
+3) XML
+4) LINQ to XML
+
+****************ADO.NET****************
+Basic ADO.NET Objects
+
+DB
+  Tables
+  Views
+  SPs
+  Triggers
+  .....
+  
+Provider Specific   , SqlConnection, SqlCommand, SqlDataReader
+
+SqlConnection
+string constr = "Server=server;Database=db;User ID=user;Password=pwd;..."
+using(SqlConnection connection = new SqlConnection(constr))
+{
+	string query = "SELECT TOP 10 PositionID, ReportedAt, Latitude, Longitud FROM dbo.Positions;";
+	using (SqlCommand cmd = new SqlCommand(query, connection)) 
+	{
+		connection.Open();
+		using (SqlDataReader rdr = new cmd.ExecuteReader())
+		{
+			string position =
+			  string.Format("{0},{1},{2},{3}",
+			    rdr.GetInt32(0),rdr.GetDateTime(1), rdr.GetFloat(2), rdr.GetFloat(3));
+		    Console.WriteLine(position);
+		}
+	}
+}
+
+DataTable and DataAdapter -- In Memory
+
+DataAdapter
+SelectCommand     Fill()
+InsertCommand     Update()
+UpdateCommand
+DeleteCommand
+
+Conflict Resolution***
+
+DataSets  -- Multiple DataTables (can be related)
+
+
+juanpablo
+Fr3eDebt$2028
+
+Server=tcp:jp70487.database.windows.net,1433;Initial Catalog=PositionsDemo;Persist Security Info=False;User ID={your_username};Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+
+jp70487.database.windows.net
+Server=tcp:jp70487.database.windows.net,1433;Initial Catalog=PSEvents;Persist Security Info=False;User ID={your_username};Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+
+****************LINQ****************
+
+
+****************XML****************
+
+XmlDocument
+XmlDeclaration
+XmlComment
+XmlElement
+XmlAttribute
+XmlText
+
+****************Linq TO XML****************
+
+XDocument
+XDeclaration
+XComment
+XElement
+XAttribute
+XText

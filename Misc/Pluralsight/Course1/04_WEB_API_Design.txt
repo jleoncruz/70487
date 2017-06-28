@@ -1,0 +1,257 @@
+Web API Design
+https://app.pluralsight.com/library/courses/web-api-design/table-of-contents
+
+URI Design
+Understanding Verbs
+Status Codes
+Associations
+Designing the Results
+ETags
+Paging And Partials
+Non-Resource APIs
+
+
+URI Design
+- Nouns are good , verbs are bad
+- URIs should point to nouns (eg Resources)
+- Prefer Plurals
+  EG:  http://..../api/Customers
+       http://..../api/Games
+	   http://..../api/Invoices
+
+- Use identifiers to location individual items in URIs
+ -- Does not have to be internal key
+       http://..../api/Customers/123
+       http://..../api/Games/halo-3
+	   http://..../api/Invoices/2003-01-24
+
+	   
+-- Status Codes
+
+200 Ok               400 Bad Request
+201 Created          401 Not Authorized
+202 Accepted         403 Forbidden
+302 Found            404 Not Found
+304 Not Modified     405 Method Not Allowed
+307 Temp Redirect    409 Conflict
+308 Perm Redirect    500 Internal Error
+
+At minimum use
+200, 400, 500
+
+Probably
+201, 304, 404, 401, 403
+
+-- Associations
+
+For sub-objects
+ Use URI Navigation
+   http://..../api/Customers/123/Invoices
+   http://..../api/Games/halo-3/Ratings
+   http://..../api/Invoices/2003-01-24/Payments
+  
+  Should Return List of Related Objects
+    -- http://..../api/Customers/123/Invoices
+    -- http://..../api/Invoices
+	
+  May include multiple associations on same object
+    -- http://..../api/Customers/123/Invoices
+	-- http://..../api/Customers/123/Payments
+	-- http://..../api/Customers/123/Shipments
+	
+  Anything more complex should use query strings
+    -- http://..../api/Customers?state=GA
+	-- http://..../api/Customers?state=GA&salesperson=144
+	-- http://..../api/Customers?hasOpenOrders=true
+  
+Content Types
+- JSON  - application/json
+- XML   - text/xml
+- JSONP - application/javascript  -- Cross Domains, json in a js function. it needs a callback query parameter.
+- RSS   - application/xml+rss
+- ATOM  - application/xml+atom
+
+Using URI components to format
+  -- http://..../api/Customers?format=json
+  -- http://..../api/Customers.json
+  -- http://..../api/Customers?format=jsonp&callback=foo
+  
+  ETags
+  
+  412 Precondition Failed
+  
+  Partial Items
+  
+  Use of PATCH Http Verb and ETags
+  
+  -- caching aggressively and etags)
+  
+-- Versioning
+
+1) URI Path Versioning
+2) URI Parameter Versioning
+3) Content Type Versioning
+4) Custom Header Versioning
+
+
+Examples
+
+-- Tumblr
+ - URI Path
+  - http://api.tumblr.com/v2/user/
+  
+-- Netflix
+ - URI Parameter
+  - http://api.netflix.com/catalog/titles/series/70023522?v=1.5
+  
+-- GitHub APIs
+ - Content Negotiation
+  - Content Type: application/vnd.github.1.param+json
+  
+-- Azure
+ - Request Header
+  - x-ms-vesion:2011-08-18
+  
+  
+URI Path
+-allows you to drastically change the APIs
+-everything below the version is open to change
+
+http://.../api/v1/Customers?type=Current&id=123
+http://.../api/v2/CurrentCustomers/123
+
+URI Query Parameter Versioning
+-Optional Parameter
+
+http://.../api/Customers         <-- clients always gets the latest version of API
+http://.../api/Customers?v=2.1
+
+Content Type
+-Instead of using standard MIME types, use custim
+
+GET/api/Customers/123
+HOST:http://.../
+Accept: application/myapp.v1.customer
+  Accept: application/myapp.v1.customer.json
+  
+Content Negotiation
+GET/api/Customers/123
+HOST:http://.../
+Accept: vnd.myapp.v1.customer
+
+Custom Header
+-Should be a header value that is only of value to your API.
+
+GET/api/Customers/123
+HOST:http://.../
+x-MyApp-Version:2.1
+  x-MyApp-Version:2013-08-13
+  
+  
+You must version your APIs
+  
+-- Securing Web APIs
+
+- do you need to secure your API?
+Yes, if
+  - using private or personalizaed data
+  - sending sensitive data across the 'wire'
+  - using credentials of any kind
+  - trying to protect against overuse of your servers
+  
+  
+--- Cross Domain Security
+- Public or private*   *=default / browser behavior
+
+on Public
+
+ 2 approaches
+ 1) Support JSONP as a format
+ 2) Enable CORS  (Cross-origin Resource Sharing)
+ 
+ JSONP
+   - JSON with Padding
+   - JSONP is JavaScript
+   - Packages results as a JavaScript script that is executed
+   - JavaScript calls back into one of your functions with data
+   
+   Example:
+   
+   function updateUser(data){
+   //use data
+   }
+   
+     GET/api/games?callback=updateGames HTTP/1.1
+     Accept:application/javascript
+	 Host:localhost:8863
+	   updateUser({totalResults = 1, results = [...]});
+	   
+ CORS
+  - Allows Cross Site support from Browser
+  - Requires some handshaking
+  
+  
+  Server Asked if CORS allowed
+    OPTIONS/api/games HTTP/1.1
+	Origin: http://mysite.com
+	Access-Control-Request-Method: POST
+	HOST;localhost:8863
+	
+  Server Responds With Rules
+   Access-Control-Allow-Methods: GET,POST,OPTIONS
+   Access-Control-Allow-Origin: http://mysite.com
+   Content-Length: 0
+	
+ --Who Should You Authenticate
+ 
+ - Server to Server Authentication
+  -- API Keys and Shared Secrets
+  
+ - User Proxy Authentication
+  -- OAuth or Similar
+  
+ - Direct User Authentication
+  -- Cookies or token
+ 
+ Definitions
+ -Credential : A fact that describe an identity
+ -Authentication : Validate a set of credentials to identity an entity (whethever virtual or actual)
+ -Authorization : Verification that an entity has rights to access a resource or action.
+ 
+-- Hypermedia
+
+- What is : Are links for APIs
+  - help developers know how to use the API
+  
+  
+Profile Media Types
+ - Alternative to using custom MIME type in versioning
+ - Should be included inside the Accept Header
+ 
+   GET/api/order/123
+   HOST:http://.../
+   Accept:application/json;profile=http://wilderminds.com/orders
+   
+   
+HAL ; Hypertext Application Language
+ a lean hypermedia type
+ - Plain-old formats (JSON Or XML) to include resources and links
+  - application/hal+json
+    -- application/hal+json;profile=http://wilderminds.com/orders
+  - application/hal+xml
+
+  
+  - Template links
+    http://.../games{?query}
+	http://.../games?query=halo
+	
+Collection+JSON
+
+ - Uses MIME Type:
+   -- application/vnd.collection+json
+   
+ - Uses Profile Media Type too
+   -- application/vnd.collection+json;profile=http://foo.com/bar
+  
+  
+  

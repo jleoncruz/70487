@@ -1,0 +1,61 @@
+Developing Windows Azure and Web Services
+M1 WCF Services
+https://channel9.msdn.com/series/developing-windows-azure-and-web-services/01
+
+Windows Communication Foundation
+APIS, SOA
+
+Common Tasks
+1) Read/Write Operations on back end dbs
+2) Calling other Web services
+3) Async calls
+
+SOAP vs REST
+
+Advantages of REST [JSON]
+1) Automatic support - native http
+2) Lightweight , efficient
+3) Secure - Supports https
+4) Modern - Twitter, Yahoo, etc
+5) No toolkits needed, XML format
+
+WCF + SOAP
+Supports a lot of biddings
+
+https://blogs.msdn.microsoft.com/brunoterkaly/2013/
+https://blogs.msdn.microsoft.com/brunoterkaly/2013/10/18/getting-started-with-wcf-windows-communication-foundation-running-and-debugging-quickly/
+
+
+Using Interfaces
+Why?
+1) makes code better, by increasing reusability, maintainibility and extensibility.
+2) Defines what must a client know about a class in order to benefit from using it.
+3) Developers often put the interfaces into a separate assembly
+
+App Config
+ABCs
+A = address, indicates where the endpoint can be found
+B = binding, specifies how a client can communicate with the endpoint.
+C = contract , usually is the interface
+
+Bindings
+1) Transport
+   4 options 
+     1 - HTTP - Multiplatform, challenge: stateless
+     2 - TCP -- fastest, duplex
+	 3 - MSMQ Message Queuing
+	 4 - Named pipes, 2 WCF sevices on the same computer
+2) Encoding
+   3 options
+     1 - Text
+	 2 - Binary - fastest
+	 3 - MTOM - Large Objects
+3) Protocol details
+
+
+Hosting a WCF Service
+1) IIS
+   Process Recycling, Idle shutdown, Process health monitoring, Mesage-based activation
+2) Windows Service
+   OS supported, starts automatically
+3) Managed .NET App

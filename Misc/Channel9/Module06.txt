@@ -1,0 +1,46 @@
+Developing Windows Azure and Web Services
+M6 Web API
+https://channel9.msdn.com/series/developing-windows-azure-and-web-services/06
+
+- Services Framework Review
+- Creating Web API Services
+- Consuming Web API Services
+
+
+WCF Brand                              ASP.NET Brand
+=====================================================
+WCF Classic                            ASP.NET Web Services (ASMX)
+WCF Data Services                      ASP.NET MVC
+WCF RIA Services                       ASP.NET Web API
+WCG Web HTTP                           ASP.NET Web API Odata
+                                       ASP.NET SignalR
+									   
+SOAP SVC
+Windows clients (Proxy Generator)
+
+REST SVC
+HTTP client (Anything)
+
+- Creating a Web API
+Derive from ApiController
+Implement Actions
+Actions maps to HTTP methods (GET, POST, PUT, DELETE)
+
+- Consuming HTTP Clients
+Build your client side models (optional)
+Use the HttpClient to call REST Service URLs
+  Set Headers
+  Query String
+  Body(for POST and PUT)
+Use JSON Serializer / Deserializer (Like Json.NET)
+  Map objects to JSON
+  Map JSON to Objects
+
+Advanced Topics  
+----------------------------29:37
+Overview
+-Creating Services & Clients in code
+-Securing WCF Services
+-Windows Azure Service Bus
+
+ChannelFactory

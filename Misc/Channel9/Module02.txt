@@ -1,0 +1,12 @@
+Developing Windows Azure and Web Services
+M2 Windows Azure Services
+https://channel9.msdn.com/series/developing-windows-azure-and-web-services/02
+
+Hosting Platforms
+
+1) Azure Web Sites
+2) Azure Cloud Service Web Roles
+3) Azure Cloud Service Worker Roles
+
+https://www.hanselman.com/blog/ScottHanselmans2014UltimateDeveloperAndPowerUsersToolListForWindows.aspx
+

@@ -1,0 +1,17 @@
+Developing Windows Azure and Web Services
+M5 Data Access with Entity Framework
+https://channel9.msdn.com/series/developing-windows-azure-and-web-services/05
+
+Overview
+
+1) Entity Data Models
+2) Developer Workflows
+3) WCF Data Services
+
+
+https://msdn.microsoft.com/en-us/magazine/dn532202.aspx
+https://www.w3schools.com/graphics/google_maps_intro.asp
+
+
+WCF Data Services -- OData Services
+
