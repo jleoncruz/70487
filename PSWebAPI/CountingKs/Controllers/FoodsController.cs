@@ -11,6 +11,13 @@ namespace CountingKs.Controllers
 {
     public class FoodsController : ApiController
     {
+        private ICountingKsRepository _repo;
+
+        public FoodsController(ICountingKsRepository repo) // Interface, For Test. Decouple
+        {
+            _repo = repo;
+        }
+
         public IEnumerable<Food> Get()
         {
             CountingKsRepository repository = new CountingKsRepository(new CountingKsContext());

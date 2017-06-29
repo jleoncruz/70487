@@ -2,4 +2,12 @@ Implementing an API in ASP.NET Web API
 
 https://app.pluralsight.com/library/courses/implementing-restful-aspdotnet-web-api/exercise-files
 
-Current:: Dependency Injection.
+Dependency Injection.
+
+NuGet Packages
+1) Ninject.MVC3
+2) WebApiContrib.Ioc.Ninject
+
+Update the App_Start NinjectWebCommon.cs
+
+Next : Model VS Entities.
