@@ -11,6 +11,4 @@ NuGet Packages
 Update the App_Start NinjectWebCommon.cs
 
 Next : Model VS Entities.
-
-
 Next : Routing and Parameter Handling
