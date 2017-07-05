@@ -5,3 +5,31 @@ Implementing an Association
 localhost:8901/api/nutrition/foods/1/measures
 
 Identifiers
+
+Security
+
+Implementing POST
+
+Implementing DELETE
+
+{
+  "quantity" : 5,
+  "measureUrl" : "http://localhost:8901/api/nutrition/foods/3632/measures/5777"
+}
+
+localhost:8901/api/user/diaries/2017-06-28/entries
+
+"http://localhost:8901/api/user/diaries/2017-06-28/entries/18"
+http://localhost:8901/api/user/diaries/2017-06-28/entries/18
+
+Implementing PUT/PATCH
+
+http://localhost:8901/api/user/diaries/2017-06-28/entries/17
+
+{
+  "quantity" : 3,
+  ...
+}
+
+
+Implementing Paging
