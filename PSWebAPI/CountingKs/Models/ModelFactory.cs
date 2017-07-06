@@ -40,12 +40,22 @@ namespace CountingKs.Models
             };
         }
 
+        public DiarySummaryModel CreateSummary(Diary diary)
+        {
+            return new DiarySummaryModel()
+            {
+                DiaryDate = diary.CurrentDate,
+                TotalCalories = Math.Round(diary.Entries.Sum(e => e.Measure.Calories * e.Quantity))
+            };
+        }
+
         public DiaryModel Create(Diary d)
         {
             return new DiaryModel()
             {
                 Url = _urlHelper.Link("Diaries", new { diaryid = d.CurrentDate.ToString("yyyy-MM-dd") }),
-                CurrentDate = d.CurrentDate
+                CurrentDate = d.CurrentDate,
+                Entries = d.Entries.Select(e => Create(e))
             };
         }
 
