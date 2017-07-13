@@ -8,9 +8,11 @@ using System.Web.Http;
 using CountingKs.Data.Entities;
 using CountingKs.Models;
 using System.Web.Http.Routing;
+using CountingKs.Filters;
 
 namespace CountingKs.Controllers
 {
+    //[RequireHttps]
     public class FoodsController : BaseApiController
     {
         public FoodsController(ICountingKsRepository repo) : base(repo) // Interface, For Test. Decouple

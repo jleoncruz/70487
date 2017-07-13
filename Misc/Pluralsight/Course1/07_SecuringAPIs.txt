@@ -1,1 +1,26 @@
 Securing APIs
+- APIs and Security
+- Cross-Origin Security
+- Authentication vs Authorization
+- User Auth vs App Auth
+- Using ASP.NET Authentication in Web APIs
+- Basic Authentication
+- Token Authentication
+- OAuth
+
+
+---------- APIs and Security
+ using private or personalized data?
+ sending sensitive data across the wire?
+ using credentials of any kind?
+ trying to protect against overuse of your servers?
+ 
+ SSL
+ 
+ RequireHttpsAttribute
+ 
+---------- Cross-Origin Security
+JSONP
+CORS
+
+Next Supporting CORS
