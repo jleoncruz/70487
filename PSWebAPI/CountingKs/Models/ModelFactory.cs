@@ -71,6 +71,15 @@ namespace CountingKs.Models
             };
         }
 
+        public AuthTokenModel Create(AuthToken authToken)
+        {
+            return new AuthTokenModel()
+            {
+                Token = authToken.Token,
+                Expiration = authToken.Expiration
+            };
+        }
+
         public DiaryEntry Parse(DiaryEntryModel model)
         {
             try

@@ -24,3 +24,33 @@ JSONP
 CORS
 
 Next Supporting CORS
+Cross Origin Resource Sharing.
+
+WEB API 2
+
+example
+// WebApiConfig.cs
+public static void Register(HttpConfiguration config)
+{
+   ...
+   config.EnableCors(new EnableCorsAttribute());
+}
+
+Basic Authentication
+
+http://localhost:8901/api/user/diaries/
+
+User-Agent: Fiddler
+Host: localhost:8901
+Authorization: Basic amxlb25jcnV6OmNhY2F0dWExMDE=
+
+
+
+VGhpcyBDb3Vyc2UgSXMgQXdlc29tZQ==
+VkdocGN5QkRiM1Z5YzJVZ1NYTWdRWGRsYzI5dFpRPT0=
+
+Next: Implementing Token Authentication
+
+?apikey=SSB3aWxsIG1ha2UgbXkgQVBJIHNlY3VyZQ==
+
+Next Versioning

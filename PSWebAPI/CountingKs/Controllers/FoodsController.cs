@@ -13,6 +13,7 @@ using CountingKs.Filters;
 namespace CountingKs.Controllers
 {
     //[RequireHttps]
+    [CountingKsAuthorize(false)]
     public class FoodsController : BaseApiController
     {
         public FoodsController(ICountingKsRepository repo) : base(repo) // Interface, For Test. Decouple

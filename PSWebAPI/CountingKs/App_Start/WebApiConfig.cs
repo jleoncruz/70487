@@ -44,6 +44,14 @@ namespace CountingKs
             );
 
             config.Routes.MapHttpRoute(
+                name: "Token",
+                routeTemplate: "api/token",
+                defaults: new { controller = "token" }
+                //constraints: new { id = "/d+" }
+                //constraints: new { id = "" }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "DiarySummary",
                 routeTemplate: "api/user/diaries/{diaryid}/summary",
                 defaults: new { controller = "diarySummary" }
@@ -67,8 +75,8 @@ namespace CountingKs
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             // Add support for JSONP
-            var formatter = new JsonpMediaTypeFormatter(jsonFormatter, "cb");
-            config.Formatters.Insert(0, formatter);
+            //var formatter = new JsonpMediaTypeFormatter(jsonFormatter, "cb");
+            //config.Formatters.Insert(0, formatter);
 
 #if !DEBUG
             //Force HTTPS on entire API
