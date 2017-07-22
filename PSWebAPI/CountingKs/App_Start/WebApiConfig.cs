@@ -1,10 +1,13 @@
 ﻿using CountingKs.Filters;
+using CountingKs.Services;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Formatting;
+using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.Dispatcher;
 using WebApiContrib.Formatting.Jsonp;
 
 namespace CountingKs
@@ -28,6 +31,14 @@ namespace CountingKs
                 //constraints: new { id = "/d+" }
                 //constraints: new { id = "" }
             );
+
+            //config.Routes.MapHttpRoute(
+            //    name: "Measures2",
+            //    routeTemplate: "api/nutrition/foods/{foodid}/measures/{id}",
+            //    defaults: new { controller = "measuresv2", id = RouteParameter.Optional }
+            //    //constraints: new { id = "/d+" }
+            //    //constraints: new { id = "" }
+            //);
 
             config.Routes.MapHttpRoute(
                 name: "Diaries",
@@ -74,14 +85,38 @@ namespace CountingKs
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().FirstOrDefault();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
+            CreateMediaTypes(jsonFormatter);
+
             // Add support for JSONP
-            //var formatter = new JsonpMediaTypeFormatter(jsonFormatter, "cb");
-            //config.Formatters.Insert(0, formatter);
+            var formatter = new JsonpMediaTypeFormatter(jsonFormatter, "cb");
+            config.Formatters.Insert(0, formatter);
+
+            // Replace the controller Configuration
+            config.Services.Replace(typeof(IHttpControllerSelector),
+                new CountingKsControllerSelector(config));
 
 #if !DEBUG
             //Force HTTPS on entire API
             config.Filters.Add(new RequireHttpsAttribute());
 #endif
+        }
+
+        static void CreateMediaTypes(JsonMediaTypeFormatter jsonFormatter)
+        {
+            //vnd == vendor
+            var mediaTypes = new string[]
+            {
+                "application/vnd.countingks.food.v1+json",
+                "application/vnd.countingks.measure.v1+json",
+                "application/vnd.countingks.measure.v2+json",
+                "application/vnd.countingks.diary.v1+json",
+                "application/vnd.countingks.diaryEntry.v1+json",
+            };
+
+            foreach (var mediaType in mediaTypes)
+            {
+                jsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue(mediaType));
+            }
         }
     }
 }

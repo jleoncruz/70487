@@ -12,8 +12,11 @@ namespace CountingKs.Services
         {
             get
             {
-                //return "shawnwildermuth";
+#if DEBUG
+                return "shawnwildermuth";
+#else
                 return Thread.CurrentPrincipal.Identity.Name;
+#endif
             }
         }
     }
