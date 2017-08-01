@@ -73,9 +73,27 @@ namespace CountingKs.Models
         {
             return new DiaryModel()
             {
-                Url = _urlHelper.Link("Diaries", new { diaryid = d.CurrentDate.ToString("yyyy-MM-dd") }),
+                //Url = _urlHelper.Link("Diaries", new { diaryid = d.CurrentDate.ToString("yyyy-MM-dd") }),
+                Links = new List<LinkModel>()
+                {
+                    CreateLink(_urlHelper.Link("Diaries", new { diaryid = d.CurrentDate.ToString("yyyy-MM-dd") }),
+                    "self"),
+                    CreateLink(_urlHelper.Link("DiaryEntries", new { diaryid = d.CurrentDate.ToString("yyyy-MM-dd") }),
+                    "newDiaryEntry", "POST")
+                },
                 CurrentDate = d.CurrentDate,
                 Entries = d.Entries.Select(e => Create(e))
+            };
+        }
+
+        public LinkModel CreateLink(string href, string rel, string method = "GET", bool isTemplated = false)
+        {
+            return new LinkModel()
+            {
+                Href = href,
+                Rel = rel,
+                Method = method,
+                IsTemplated = isTemplated
             };
         }
 
@@ -124,6 +142,35 @@ namespace CountingKs.Models
 
             }
             catch /*(Exception)*/
+            {
+                return null;
+            }
+        }
+
+        public Diary Parse(DiaryModel model)
+        {
+            try
+            {
+                var entity = new Diary();
+
+                var selfLink = model.Links.Where(l => l.Rel == "self").FirstOrDefault();
+
+                if (selfLink != null && !string.IsNullOrWhiteSpace(selfLink.Href))
+                {
+                    var uri = new Uri(selfLink.Href);
+                    entity.Id = int.Parse(uri.Segments.Last());
+                }
+
+                entity.CurrentDate = model.CurrentDate;
+
+                if (model.Entries != null)
+                {
+                    foreach (var entry in model.Entries) entity.Entries.Add(Parse(entry));
+                }
+
+                return entity;
+            }
+            catch
             {
                 return null;
             }

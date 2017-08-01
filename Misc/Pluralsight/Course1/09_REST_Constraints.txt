@@ -1,0 +1,21 @@
+Rest Constraints
+1) Client-Server
+2) Stateless Server
+3) Cache
+4) Uniform Interface
+  - Identification of Resources
+  - Representations Supporting Modification
+  - Self-Description
+  - Hypermedia As The Engine Of Application State (HATEOAS)
+5) Layered System
+6) Code-On-Demand
+
+http://localhost:8901/api/user/diaries/2017-06-28?cb=foo
+
+If-None-Match: "20e14adc326d4565aa5b96cae177b745"
+
+Next Implementing Links
+
+http://localhost:8901/api/user/diaries/2017-06-28
+
+NEXT : Web API Version 2

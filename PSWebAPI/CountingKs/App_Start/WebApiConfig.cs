@@ -1,8 +1,12 @@
-﻿using CountingKs.Filters;
+﻿using CacheCow.Server;
+using CacheCow.Server.EntityTagStore.SqlServer;
+using CountingKs.Converters;
+using CountingKs.Filters;
 using CountingKs.Services;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
@@ -84,7 +88,7 @@ namespace CountingKs
 
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().FirstOrDefault();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-
+            jsonFormatter.SerializerSettings.Converters.Add(new LinkModelConverter());
             CreateMediaTypes(jsonFormatter);
 
             // Add support for JSONP
@@ -94,6 +98,14 @@ namespace CountingKs
             // Replace the controller Configuration
             config.Services.Replace(typeof(IHttpControllerSelector),
                 new CountingKsControllerSelector(config));
+
+            // Configure Caching/ETag support
+            var connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            var etagStore = new SqlServerEntityTagStore(connString);
+            var cacheHandler = new CachingHandler(config, etagStore);
+            //cacheHandler.AddLastModifiedHeader = false;
+            config.MessageHandlers.Add(cacheHandler);
+
 
 #if !DEBUG
             //Force HTTPS on entire API
