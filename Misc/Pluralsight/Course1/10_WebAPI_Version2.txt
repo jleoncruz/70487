@@ -1,0 +1,32 @@
+ASP.NET Web API 2
+
+- MVC 5
+- VS 2012 / 2013
+- requires .NET 4.5
+
+Steps to upgrade from MVC 4 TO MVC 5 (Or Web API 1 to Web API 2)
+
+From Manage NuGet Packages,
+1) Upgrade Microsoft.AspNet.Mvc
+2) Upgrade Miscrosoft ASP.NET Web API 2
+3) Odata
+4) CacheCow Server Entity TagStore Sql Server
+5) Microsoft HTTP Client Libraries
+
+Uninstall
+1) Microsoft AspNet Mvc Fixed Display Modes
+
+Install
+1) ASP.NET Web Helpers Library
+2) Microsoft.AspNet.WebPages.Data
+
+
+Microsoft.AspNet.WebHelpers
+
+Remapping assemblies
+
+
+Microsoft.AspNet.WebPages.Data' package.
+
+
+Next Routing Basics
