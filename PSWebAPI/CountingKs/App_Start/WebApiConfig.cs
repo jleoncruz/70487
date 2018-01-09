@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Dispatcher;
 using WebApiContrib.Formatting.Jsonp;
 
@@ -20,13 +21,15 @@ namespace CountingKs
     {
         public static void Register(HttpConfiguration config)
         {
-            config.Routes.MapHttpRoute(
-                name: "Food",
-                routeTemplate: "api/nutrition/foods/{foodid}",
-                defaults: new { controller = "foods", foodid = RouteParameter.Optional }
-                //constraints: new { id = "/d+" }
-                //constraints: new { id = "" }
-            );
+            config.MapHttpAttributeRoutes();
+
+            //config.Routes.MapHttpRoute(
+            //    name: "Food",
+            //    routeTemplate: "api/nutrition/foods/{foodid}",
+            //    defaults: new { controller = "foods", foodid = RouteParameter.Optional }
+            //    //constraints: new { id = "/d+" }
+            //    //constraints: new { id = "" }
+            //);
 
             config.Routes.MapHttpRoute(
                 name: "Measures",
@@ -92,8 +95,8 @@ namespace CountingKs
             CreateMediaTypes(jsonFormatter);
 
             // Add support for JSONP
-            var formatter = new JsonpMediaTypeFormatter(jsonFormatter, "cb");
-            config.Formatters.Insert(0, formatter);
+            //var formatter = new JsonpMediaTypeFormatter(jsonFormatter, "cb");
+            //config.Formatters.Insert(0, formatter);
 
             // Replace the controller Configuration
             config.Services.Replace(typeof(IHttpControllerSelector),
@@ -101,10 +104,15 @@ namespace CountingKs
 
             // Configure Caching/ETag support
             var connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            // REMINDER: Make sure you've run the SQL Scripts in the package folder!
             var etagStore = new SqlServerEntityTagStore(connString);
             var cacheHandler = new CachingHandler(config, etagStore);
             //cacheHandler.AddLastModifiedHeader = false;
             config.MessageHandlers.Add(cacheHandler);
+
+            // Add support CORS
+            var attr = new EnableCorsAttribute("*", "*", "GET");
+            config.EnableCors(attr);  //<-- Adding the Cors to the whole application.
 
 
 #if !DEBUG

@@ -30,3 +30,40 @@ Microsoft.AspNet.WebPages.Data' package.
 
 
 Next Routing Basics
+-- Defining the routes directly into the controller
+
+Attribute Routing Parameters
+
+//Controller level
+[RoutePrefix("api/stats")]
+public class StatsController : BaseApiController
+
+//Method level using PreFix
+	[Route("")]
+	public HttpResponseMessage Get()
+	
+//Method level using Override over the PreFix
+	[Route("~/api/stat/{id}")]
+	public HttpResponseMessage Get(int id)
+	
+-- Constraints
+	[Route("~/api/stat/{name:alpha}")]
+	public HttpResponseMessage Get(string name)
+	
+	[Route("~/api/stat/{id:int}")]
+	public HttpResponseMessage Get(int id)
+	
+-- Advanced Routing
+
+-- CORS Sharing Support 
+
+-- IHttpActionResult
+Factoring Pattern
+
+public interface IHttpActionResult
+{
+	Task<HttpResponseMessage>
+	  ExecuteAsync(CancellationToken cancellationToken);
+}
+
+https://www.pluralsight.com/blog/software-development/developing-microsoft-azure-and-web-services-microsoft-exam-70-487

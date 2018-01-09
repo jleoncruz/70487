@@ -14,6 +14,7 @@ namespace CountingKs.Controllers
 {
     //[RequireHttps]
     [CountingKsAuthorize(false)]
+    [RoutePrefix("api/nutrition/foods")]
     public class FoodsController : BaseApiController
     {
         public FoodsController(ICountingKsRepository repo) : base(repo) // Interface, For Test. Decouple
@@ -25,6 +26,7 @@ namespace CountingKs.Controllers
         //public IEnumerable<Food> Get()
         //public IEnumerable<object> Get()
         //public IEnumerable<FoodModel> Get(bool includeMeasures = true, int page = 0)
+        [Route("", Name = "Foods")]
         public object Get(bool includeMeasures = true, int page = 0)
         {
             CountingKsRepository repository = new CountingKsRepository(new CountingKsContext());
@@ -59,12 +61,12 @@ namespace CountingKs.Controllers
 
             if (page > 0)
             {
-                links.Add(TheModelFactory.CreateLink(helper.Link("Food", new { page = page - 1 }), "prevPage"));
+                links.Add(TheModelFactory.CreateLink(helper.Link("Foods", new { page = page - 1 }), "prevPage"));
             }
 
             if (page < totalPages - 1)
             {
-                links.Add(TheModelFactory.CreateLink(helper.Link("Food", new { page = page + 1 }), "nextPage"));
+                links.Add(TheModelFactory.CreateLink(helper.Link("Foods", new { page = page + 1 }), "nextPage"));
             }
 
             //var prevUrl = (page > 0) ? helper.Link("Food", new { page = page - 1 }) : "";
@@ -87,9 +89,16 @@ namespace CountingKs.Controllers
             };
         }
 
-        public FoodModel Get(int foodid)
+        //[Route("{foodid}", Name = "Food")]
+        //public FoodModel Get(int foodid)
+        //{
+        //    return TheModelFactory.Create(TheRepository.GetFood(foodid));
+        //}
+
+        [Route("{foodid}", Name = "Food")]
+        public IHttpActionResult Get(int foodid)
         {
-            return TheModelFactory.Create(TheRepository.GetFood(foodid));
+            return Versioned(TheModelFactory.Create(TheRepository.GetFood(foodid)), "v2");
         }
     }
 }
